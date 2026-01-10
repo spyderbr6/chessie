@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir /s \"c:\\\\Users\\\\Desktop\\\\chessie\\\\Assets\")",
+      "Bash(dir:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}
