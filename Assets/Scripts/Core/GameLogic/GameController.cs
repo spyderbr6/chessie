@@ -3,6 +3,7 @@ using ChessGame.Core.Board;
 using ChessGame.Core.Pieces;
 using ChessGame.Core.MoveSystem;
 using ChessGame.Core.Input;
+using ChessGame.Core.UI;
 
 namespace ChessGame.Core.GameLogic
 {
@@ -29,6 +30,12 @@ namespace ChessGame.Core.GameLogic
 
         [Header("Game Logic")]
         [SerializeField] private TurnManager turnManager;
+
+        [Header("UI System")]
+        [SerializeField] private GameStatusUI gameStatusUI;
+        [SerializeField] private MoveHistoryUI moveHistoryUI;
+        [SerializeField] private CapturedPiecesDisplay capturedPiecesDisplay;
+        [SerializeField] private GameEndUI gameEndUI;
 
         [Header("Settings")]
         [SerializeField] private bool autoStartGame = true;
@@ -97,6 +104,22 @@ namespace ChessGame.Core.GameLogic
                 moveHistory.Clear();
             }
 
+            // Clear UI displays
+            if (moveHistoryUI != null)
+            {
+                moveHistoryUI.Clear();
+            }
+
+            if (capturedPiecesDisplay != null)
+            {
+                capturedPiecesDisplay.Clear();
+            }
+
+            if (gameEndUI != null)
+            {
+                gameEndUI.Hide();
+            }
+
             // Create the board visualization
             if (boardVisualizer != null)
             {
@@ -123,6 +146,12 @@ namespace ChessGame.Core.GameLogic
 
             // Set game state to in progress
             currentState = GameState.InProgress;
+
+            // Update UI
+            if (gameStatusUI != null)
+            {
+                gameStatusUI.UpdateUI();
+            }
 
             Debug.Log($"Game started. {turnManager.CurrentTurn} to move.");
         }
@@ -273,6 +302,18 @@ namespace ChessGame.Core.GameLogic
             if (moveHistory != null)
             {
                 moveHistory.PrintMoveHistory();
+            }
+
+            // Show game end UI
+            if (gameEndUI != null)
+            {
+                gameEndUI.ShowGameEnd(endState, winner);
+            }
+
+            // Update status UI
+            if (gameStatusUI != null)
+            {
+                gameStatusUI.UpdateUI();
             }
         }
 

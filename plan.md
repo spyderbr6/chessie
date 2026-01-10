@@ -4,7 +4,7 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 
 ## Current Progress (2026-01-10)
 
-### ✅ Phases 1-6 Complete
+### ✅ Phases 1-7 Complete
 **Phase 1 - Core Infrastructure:**
 - Folder structure
 - Enums (PieceType, PieceColor, GameState, MoveType)
@@ -45,16 +45,25 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 - Pawn promotion (defaults to Queen, keyboard selector for other pieces)
 - Integration with MoveGenerator for seamless special move handling
 
-### 🔄 Next: Phase 7 - UI & Game Information Display
-- Game status display (turn, captured pieces, check/checkmate)
-- Move history display panel
-- Promotion piece selection UI (graphical buttons)
-- Game end screen (winner, game stats)
-- Settings panel (new game, quit)
+**Phase 7 - UI & Game Information Display:**
+- GameStatusUI (displays turn, check warnings, game state)
+- MoveHistoryUI (scrollable move list with auto-scroll)
+- CapturedPiecesDisplay (shows captured pieces, material advantage)
+- GameEndUI (game over screen with results, stats, new game/quit buttons)
+- Integration with GameController for automatic UI updates
+- TextMeshPro support for modern text rendering
 
-### ⬜ Remaining Phases
-- Phase 8: Enhanced Features & Polish
-- Phase 9: Final Testing & Documentation
+### 🔄 Next: Complete!
+All core features implemented! Optional enhancements:
+- Graphical promotion piece selector (currently keyboard-based)
+- Sound effects and animations
+- Save/load games
+- AI opponent
+- Online multiplayer
+
+### ⬜ Optional Phases
+- Phase 8: Polish & Animations (piece movement, captures, sounds)
+- Phase 9: Advanced Features (save/load, AI, settings menu)
 
 ## Quick Reference
 
@@ -101,8 +110,12 @@ Files:          a b c d e f g h i j
 - `Assets/Scripts/Core/Input/PieceSelector.cs` - Piece selection logic
 - `Assets/Scripts/Core/Input/SquareHighlighter.cs` - Visual feedback system
 
-**UI (Phase 6):**
+**UI (Phases 6-7):**
 - `Assets/Scripts/Core/UI/PromotionSelector.cs` - Keyboard-based promotion piece selection
+- `Assets/Scripts/Core/UI/GameStatusUI.cs` - Turn and game state display (Phase 7)
+- `Assets/Scripts/Core/UI/MoveHistoryUI.cs` - Scrollable move history (Phase 7)
+- `Assets/Scripts/Core/UI/CapturedPiecesDisplay.cs` - Captured pieces and material (Phase 7)
+- `Assets/Scripts/Core/UI/GameEndUI.cs` - Game over screen with stats (Phase 7)
 
 ### Architecture Highlights
 - **Coordinate System**: Files 0-9 (a-j), Ranks 0-7 (1-8)

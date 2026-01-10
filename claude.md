@@ -16,9 +16,9 @@ Building a Capablanca chess variant in Unity 6 2D:
 
 ### Current Status (Updated: 2026-01-10)
 
-✅ **Phases 1-6 Complete** - Complete chess game with ALL rules: castling, en passant, promotion, checkmate
-🔄 **Next**: Phase 7 - UI & Game Information Display
-⬜ **Remaining**: Phases 8-9 (enhanced features, polish, final testing & documentation)
+✅ **Phases 1-7 COMPLETE** - Full Capablanca chess with UI displays!
+🎉 **Status**: FEATURE COMPLETE - All core gameplay and UI implemented
+⬜ **Optional**: Polish (animations, sounds), advanced features (AI, save/load)
 
 ### Key Implementation Notes
 
@@ -38,7 +38,7 @@ Building a Capablanca chess variant in Unity 6 2D:
 📋 **Quick Reference**: [plan.md](plan.md) - Current progress and overview
 🗂️ **Full Detailed Plan**: `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md`
 
-## Testing Current Implementation (Phases 1-5)
+## Testing Current Implementation (Phases 1-7 COMPLETE)
 
 To play the game:
 
@@ -50,19 +50,28 @@ To play the game:
    - BoardSetup
    - TurnManager
    - MoveGenerator
+   - SpecialMoveHandler
    - MoveExecutor
    - MoveHistory
    - SquareHighlighter
    - PieceSelector
    - ChessInputHandler
    - **GameController** (must be last)
-4. Configure references in inspector:
-   - GameController: Assign all other components
-   - BoardSetup: Assign ChessBoard, BoardVisualizer (and optionally piece sprites)
-   - Other components: Assign their required references as shown in inspector
-5. Press Play!
+4. Create UI Canvas and add TextMeshPro text elements, then add:
+   - GameStatusUI (connect TMP_Text references)
+   - MoveHistoryUI (connect TMP_Text and ScrollRect)
+   - CapturedPiecesDisplay (connect TMP_Text references)
+   - GameEndUI (connect Panel, TMP_Text, and Buttons)
+5. Configure all references in inspectors
+6. Press Play!
 
-**Result**: Fully playable Capablanca chess! Click pieces to select, click highlighted squares to move. Game detects checkmate, stalemate, and draws.
+**Result**: Fully playable Capablanca chess with complete UI!
+- Click pieces to select
+- See highlighted legal moves
+- View turn info, check warnings
+- Track move history
+- See captured pieces and material advantage
+- Game end screen with stats and new game button
 
 ## Important Notes for Resume
 
@@ -70,9 +79,9 @@ When resuming this project:
 
 1. **Read [plan.md](plan.md)** - Quick overview of progress
 2. **Read detailed plan** at `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md` - Full architectural details
-3. **Current phase**: Phase 7 (UI & Game Information Display)
-4. **What's working**: COMPLETE chess game with ALL special moves (castling, en passant, promotion)
-5. **What's next**: Add UI displays for game status, move history, and enhanced promotion selection
+3. **Current status**: ALL 7 PHASES COMPLETE - Feature-complete Capablanca chess!
+4. **What's working**: Complete game with UI (status, move history, captured pieces, game end screen)
+5. **What's next**: Optional enhancements (animations, sounds, AI opponent, graphical promotion UI)
 
 ### Key Technical Notes
 - **White pawns start at rank 1** (not rank 2 like standard chess!)
