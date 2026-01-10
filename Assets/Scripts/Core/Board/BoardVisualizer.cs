@@ -19,7 +19,6 @@ namespace ChessGame.Core.Board
         [SerializeField] private GameObject squarePrefab;
 
         private GameObject[,] squares = new GameObject[10, 8];
-        private SpriteRenderer[,] squareRenderers = new GameObject[10, 8];
 
         private void Awake()
         {
