@@ -42,6 +42,8 @@ namespace ChessGame.Core.GameLogic
             // Clear any existing pieces
             chessBoard.ClearBoard();
 
+            Debug.Log("Setting up Capablanca starting position...");
+
             // Setup White pieces (rank 0 and 1)
             SetupBackRank(PieceColor.White, 0);
             SetupPawnRank(PieceColor.White, 1);
@@ -49,6 +51,8 @@ namespace ChessGame.Core.GameLogic
             // Setup Black pieces (rank 7 and 6)
             SetupBackRank(PieceColor.Black, 7);
             SetupPawnRank(PieceColor.Black, 6);
+
+            Debug.Log("Capablanca board setup complete! 40 pieces created.");
         }
 
         /// <summary>
@@ -106,7 +110,15 @@ namespace ChessGame.Core.GameLogic
             // Add SpriteRenderer
             SpriteRenderer renderer = pieceObj.AddComponent<SpriteRenderer>();
             renderer.sortingOrder = 7; // Pieces above board
-            renderer.sprite = GetSpriteForPiece(type, color);
+
+            // Get sprite or create placeholder if none assigned
+            Sprite sprite = GetSpriteForPiece(type, color);
+            if (sprite == null)
+            {
+                sprite = CreatePlaceholderSprite(color);
+                Debug.LogWarning($"No sprite assigned for {color} {type}, using placeholder");
+            }
+            renderer.sprite = sprite;
 
             // Add appropriate piece component
             ChessPiece piece = null;
@@ -182,6 +194,44 @@ namespace ChessGame.Core.GameLogic
                     _ => null
                 };
             }
+        }
+
+        /// <summary>
+        /// Creates a simple placeholder sprite for pieces when no sprite is assigned.
+        /// </summary>
+        private Sprite CreatePlaceholderSprite(PieceColor color)
+        {
+            // Create a simple 64x64 texture
+            Texture2D texture = new Texture2D(64, 64);
+            Color fillColor = color == PieceColor.White ? Color.white : new Color(0.2f, 0.2f, 0.2f);
+
+            // Fill the texture with the color
+            for (int x = 0; x < 64; x++)
+            {
+                for (int y = 0; y < 64; y++)
+                {
+                    // Create a circle shape
+                    float dx = x - 32f;
+                    float dy = y - 32f;
+                    float distance = Mathf.Sqrt(dx * dx + dy * dy);
+
+                    if (distance < 28f)
+                        texture.SetPixel(x, y, fillColor);
+                    else
+                        texture.SetPixel(x, y, Color.clear);
+                }
+            }
+
+            texture.Apply();
+            texture.filterMode = FilterMode.Point;
+
+            // Create sprite from texture
+            return Sprite.Create(
+                texture,
+                new Rect(0, 0, 64, 64),
+                new Vector2(0.5f, 0.5f),
+                64f
+            );
         }
     }
 }
