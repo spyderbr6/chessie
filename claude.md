@@ -16,9 +16,9 @@ Building a Capablanca chess variant in Unity 6 2D:
 
 ### Current Status (Updated: 2026-01-10)
 
-✅ **Phases 1-5 Complete** - Full playable chess game with move execution, checkmate/stalemate detection
-🔄 **Next**: Phase 6 - Special Moves (castling, en passant, promotion UI)
-⬜ **Remaining**: Phases 7-9 (enhanced game state, UI/info display, polish & testing)
+✅ **Phases 1-6 Complete** - Complete chess game with ALL rules: castling, en passant, promotion, checkmate
+🔄 **Next**: Phase 7 - UI & Game Information Display
+⬜ **Remaining**: Phases 8-9 (enhanced features, polish, final testing & documentation)
 
 ### Key Implementation Notes
 
@@ -70,17 +70,22 @@ When resuming this project:
 
 1. **Read [plan.md](plan.md)** - Quick overview of progress
 2. **Read detailed plan** at `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md` - Full architectural details
-3. **Current phase**: Phase 6 (Special Moves Implementation)
-4. **What's working**: FULLY PLAYABLE game with move execution, legal move filtering, checkmate/stalemate detection
-5. **What's next**: Implement special moves (castling, en passant, promotion UI)
+3. **Current phase**: Phase 7 (UI & Game Information Display)
+4. **What's working**: COMPLETE chess game with ALL special moves (castling, en passant, promotion)
+5. **What's next**: Add UI displays for game status, move history, and enhanced promotion selection
 
 ### Key Technical Notes
 - **White pawns start at rank 1** (not rank 2 like standard chess!)
 - **Black pawns start at rank 6** (not rank 7)
 - **Promotion ranks**: Rank 7 for White, Rank 0 for Black
 - **Capablanca Position**: R-N-A-B-Q-K-B-C-N-R (Archbishop at file 2, Chancellor at file 7)
+- **Capablanca Castling** (different from standard chess!):
+  - King starts at f-file (file 5)
+  - Queenside: King f→c, Rook a→d
+  - Kingside: King f→i, Rook j→h
 - **Input System**: "Click" action configured in UI action map (with fallback to legacy input)
 - **Game Flow**: GameController initializes everything automatically on Start if autoStartGame=true
+- **Promotion**: Currently defaults to Queen, press Q/R/B/N/A/C to select piece type
 
 ---
 Last updated: 2026-01-10 | See [plan.md](plan.md) for implementation roadmap

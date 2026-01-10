@@ -8,10 +8,12 @@ namespace ChessGame.Core.MoveSystem
     /// <summary>
     /// Generates legal moves for chess pieces.
     /// Filters pseudo-legal moves to exclude those that would leave the king in check.
+    /// Integrates with SpecialMoveHandler for castling, en passant, and promotion.
     /// </summary>
     public class MoveGenerator : MonoBehaviour
     {
         [SerializeField] private ChessBoard board;
+        [SerializeField] private SpecialMoveHandler specialMoveHandler;
 
         /// <summary>
         /// Gets all legal moves for a piece at the specified position.
@@ -29,6 +31,7 @@ namespace ChessGame.Core.MoveSystem
         /// <summary>
         /// Gets all legal moves for the specified piece.
         /// Filters pseudo-legal moves to remove those that leave the king in check.
+        /// Adds special moves (castling, en passant) via SpecialMoveHandler.
         /// </summary>
         public List<Move> GetLegalMovesForPiece(ChessPiece piece)
         {
@@ -37,6 +40,22 @@ namespace ChessGame.Core.MoveSystem
 
             // Get pseudo-legal moves (moves that follow piece rules but may leave king in check)
             List<Move> pseudoLegalMoves = piece.GetPseudoLegalMoves(board);
+
+            // Add special moves if SpecialMoveHandler is available
+            if (specialMoveHandler != null)
+            {
+                // Add castling moves for kings
+                if (piece is King king)
+                {
+                    specialMoveHandler.AddCastlingMoves(king, pseudoLegalMoves);
+                }
+
+                // Add en passant moves for pawns
+                if (piece is Pawn pawn)
+                {
+                    specialMoveHandler.AddEnPassantMoves(pawn, pseudoLegalMoves);
+                }
+            }
 
             // Filter out moves that would leave own king in check
             List<Move> legalMoves = new List<Move>();

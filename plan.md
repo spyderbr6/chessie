@@ -4,7 +4,7 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 
 ## Current Progress (2026-01-10)
 
-### ✅ Phases 1-5 Complete
+### ✅ Phases 1-6 Complete
 **Phase 1 - Core Infrastructure:**
 - Folder structure
 - Enums (PieceType, PieceColor, GameState, MoveType)
@@ -38,16 +38,23 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 - Basic checkmate/stalemate detection
 - 50-move rule tracking
 
-### 🔄 Next: Phase 6 - Special Moves Implementation
-- Castling implementation (kingside & queenside for Capablanca)
-- En passant capture implementation
-- Pawn promotion UI and logic
-- Special move validation in King and Pawn classes
+**Phase 6 - Special Moves Implementation:**
+- SpecialMoveHandler (generates castling, en passant, promotion moves)
+- Capablanca castling rules (King f→c/i, Rook a→d/j→h)
+- En passant capture detection and generation
+- Pawn promotion (defaults to Queen, keyboard selector for other pieces)
+- Integration with MoveGenerator for seamless special move handling
+
+### 🔄 Next: Phase 7 - UI & Game Information Display
+- Game status display (turn, captured pieces, check/checkmate)
+- Move history display panel
+- Promotion piece selection UI (graphical buttons)
+- Game end screen (winner, game stats)
+- Settings panel (new game, quit)
 
 ### ⬜ Remaining Phases
-- Phase 7: Enhanced Game State Management
-- Phase 8: UI & Game Information Display
-- Phase 9: Polish, Testing & Documentation
+- Phase 8: Enhanced Features & Polish
+- Phase 9: Final Testing & Documentation
 
 ## Quick Reference
 
@@ -77,6 +84,7 @@ Files:          a b c d e f g h i j
 - `Assets/Scripts/Core/MoveSystem/MoveGenerator.cs` - Legal move generation with check filtering
 - `Assets/Scripts/Core/MoveSystem/MoveExecutor.cs` - Move execution and state updates (Phase 5)
 - `Assets/Scripts/Core/MoveSystem/MoveHistory.cs` - Move tracking and notation (Phase 5)
+- `Assets/Scripts/Core/MoveSystem/SpecialMoveHandler.cs` - Castling, en passant, promotion (Phase 6)
 
 **Pieces:**
 - `Assets/Scripts/Core/Pieces/ChessPiece.cs` - Abstract base class
@@ -93,10 +101,22 @@ Files:          a b c d e f g h i j
 - `Assets/Scripts/Core/Input/PieceSelector.cs` - Piece selection logic
 - `Assets/Scripts/Core/Input/SquareHighlighter.cs` - Visual feedback system
 
+**UI (Phase 6):**
+- `Assets/Scripts/Core/UI/PromotionSelector.cs` - Keyboard-based promotion piece selection
+
 ### Architecture Highlights
 - **Coordinate System**: Files 0-9 (a-j), Ranks 0-7 (1-8)
 - **Move Generation**: Two-phase (pseudo-legal → filter for check)
 - **Extensibility**: IPlayer interface for future AI support
 - **Performance**: King reference caching, object pooling for highlights
+- **Capablanca Castling**: King starts at f-file (5), castles to c-file (2) queenside or i-file (8) kingside
+- **Special Moves**: Integrated via SpecialMoveHandler for castling, en passant, and promotion
+
+### Capablanca-Specific Rules Implemented
+- **Castling Positions**:
+  - Queenside: King f1→c1 (5→2), Rook a1→d1 (0→3)
+  - Kingside: King f1→i1 (5→8), Rook j1→h1 (9→7)
+- **Promotion Pieces**: Queen, Rook, Bishop, Knight, Archbishop, Chancellor
+- **En Passant**: Standard rules on Capablanca 10×8 board
 
 For complete implementation details, technical specs, and testing checklist, see the full plan file referenced at the top.
