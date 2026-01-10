@@ -16,9 +16,9 @@ Building a Capablanca chess variant in Unity 6 2D:
 
 ### Current Status (Updated: 2026-01-10)
 
-✅ **Phases 1-3 Complete** - Core infrastructure, move system, and all pieces implemented
-🔄 **Next**: Phase 4 - Input & Visual Feedback
-⬜ **Remaining**: Phases 5-9 (validation, check detection, special moves, game management, polish)
+✅ **Phases 1-4 Complete** - Core infrastructure, move system, all pieces, and input/visual feedback implemented
+🔄 **Next**: Phase 5 - Move Validation & Execution
+⬜ **Remaining**: Phases 6-9 (check detection enhancement, special moves, game management, polish)
 
 ### Key Implementation Notes
 
@@ -69,9 +69,9 @@ When resuming this project:
 
 1. **Read [plan.md](plan.md)** - Quick overview of progress
 2. **Read detailed plan** at `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md` - Full architectural details
-3. **Current phase**: Phase 4 (Input & Visual Feedback)
-4. **What's working**: Board renders, pieces can be instantiated
-5. **What's next**: Implement player input and move highlighting
+3. **Current phase**: Phase 5 (Move Validation & Execution)
+4. **What's working**: Board renders, pieces instantiated, player can select pieces and see legal moves
+5. **What's next**: Implement move execution and game flow
 
 ### Key Technical Notes
 - **White pawns start at rank 1** (not rank 2 like standard chess!)

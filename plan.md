@@ -4,7 +4,7 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 
 ## Current Progress (2026-01-10)
 
-### ✅ Phases 1-3 Complete
+### ✅ Phases 1-4 Complete
 **Phase 1 - Core Infrastructure:**
 - Folder structure
 - Enums (PieceType, PieceColor, GameState, MoveType)
@@ -24,15 +24,20 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 - Chancellor (Rook+Knight hybrid)
 - BoardSetup for Capablanca starting position
 
-### 🔄 Next: Phase 4 - Input & Visual Feedback
-- ChessInputHandler (mouse clicks → board positions)
-- PieceSelector (selection logic)
-- SquareHighlighter (show legal moves)
-- MoveGenerator (calculate legal moves)
+**Phase 4 - Input & Visual Feedback:**
+- MoveGenerator (calculates legal moves, filters pseudo-legal moves for check)
+- SquareHighlighter (visual feedback with object pooling)
+- PieceSelector (selection logic with turn validation)
+- ChessInputHandler (mouse input with raycasting)
+
+### 🔄 Next: Phase 5 - Move Validation & Execution
+- MoveExecutor (applies moves to board state)
+- Move validation and execution logic
+- Captured piece handling
+- Move history tracking
 
 ### ⬜ Remaining Phases
-- Phase 5: Move Validation & Execution
-- Phase 6: Check Detection & Legal Moves
+- Phase 6: Check Detection & Legal Moves (Enhanced)
 - Phase 7: Special Moves (castling, en passant, promotion)
 - Phase 8: Game State Management (checkmate, stalemate)
 - Phase 9: Polish & Testing
@@ -54,15 +59,28 @@ Files:          a b c d e f g h i j
 **Chancellor (C)**: Moves like Rook + Knight combined
 
 ### Key Files Completed
+**Core Board & Visualization:**
 - `Assets/Scripts/Core/Board/BoardPosition.cs` - Coordinate system
-- `Assets/Scripts/Core/Board/ChessBoard.cs` - Board state management (RESTORED)
+- `Assets/Scripts/Core/Board/ChessBoard.cs` - Board state management
 - `Assets/Scripts/Core/Board/BoardVisualizer.cs` - Renders 10×8 board
 - `Assets/Scripts/Core/Board/BoardSquare.cs` - Click detection
+
+**Move System:**
 - `Assets/Scripts/Core/MoveSystem/Move.cs` - Move struct with factory methods
+- `Assets/Scripts/Core/MoveSystem/MoveGenerator.cs` - Legal move generation with check filtering
+
+**Pieces:**
 - `Assets/Scripts/Core/Pieces/ChessPiece.cs` - Abstract base class
 - `Assets/Scripts/Core/Pieces/` - All 8 piece types (Pawn, Rook, Knight, Bishop, Queen, King, Archbishop, Chancellor)
+
+**Game Logic:**
 - `Assets/Scripts/Core/GameLogic/BoardSetup.cs` - Initial Capablanca positioning
 - `Assets/Scripts/Core/GameLogic/TurnManager.cs` - Turn management
+
+**Input & Interaction (Phase 4):**
+- `Assets/Scripts/Core/Input/ChessInputHandler.cs` - Mouse input and raycasting
+- `Assets/Scripts/Core/Input/PieceSelector.cs` - Piece selection logic
+- `Assets/Scripts/Core/Input/SquareHighlighter.cs` - Visual feedback system
 
 ### Architecture Highlights
 - **Coordinate System**: Files 0-9 (a-j), Ranks 0-7 (1-8)
