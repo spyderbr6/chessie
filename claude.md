@@ -16,9 +16,9 @@ Building a Capablanca chess variant in Unity 6 2D:
 
 ### Current Status (Updated: 2026-01-10)
 
-✅ **Phases 1-4 Complete** - Core infrastructure, move system, all pieces, and input/visual feedback implemented
-🔄 **Next**: Phase 5 - Move Validation & Execution
-⬜ **Remaining**: Phases 6-9 (check detection enhancement, special moves, game management, polish)
+✅ **Phases 1-5 Complete** - Full playable chess game with move execution, checkmate/stalemate detection
+🔄 **Next**: Phase 6 - Special Moves (castling, en passant, promotion UI)
+⬜ **Remaining**: Phases 7-9 (enhanced game state, UI/info display, polish & testing)
 
 ### Key Implementation Notes
 
@@ -38,30 +38,31 @@ Building a Capablanca chess variant in Unity 6 2D:
 📋 **Quick Reference**: [plan.md](plan.md) - Current progress and overview
 🗂️ **Full Detailed Plan**: `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md`
 
-## Testing Current Implementation
+## Testing Current Implementation (Phases 1-5)
 
-To test the board and pieces so far:
+To play the game:
 
 1. Open Unity and the SampleScene
 2. Create empty GameObject called "ChessManager"
-3. Add these components to it:
+3. Add **all** these components to it (in order):
    - ChessBoard
    - BoardVisualizer
    - BoardSetup
    - TurnManager
-4. Configure BoardVisualizer (or use defaults: squareSize=1, offset=(-4.5, -3.5))
-5. In BoardSetup inspector, assign:
-   - ChessBoard reference
-   - BoardVisualizer reference
-   - Piece sprites (optional, will appear as white squares if not assigned)
-6. Add initialization script or call manually:
-   ```csharp
-   boardVisualizer.CreateBoard();
-   boardSetup.SetupCapablancaPosition();
-   turnManager.StartNewGame();
-   ```
+   - MoveGenerator
+   - MoveExecutor
+   - MoveHistory
+   - SquareHighlighter
+   - PieceSelector
+   - ChessInputHandler
+   - **GameController** (must be last)
+4. Configure references in inspector:
+   - GameController: Assign all other components
+   - BoardSetup: Assign ChessBoard, BoardVisualizer (and optionally piece sprites)
+   - Other components: Assign their required references as shown in inspector
+5. Press Play!
 
-**Result**: Should display 10×8 board with all pieces in Capablanca starting position!
+**Result**: Fully playable Capablanca chess! Click pieces to select, click highlighted squares to move. Game detects checkmate, stalemate, and draws.
 
 ## Important Notes for Resume
 
@@ -69,33 +70,17 @@ When resuming this project:
 
 1. **Read [plan.md](plan.md)** - Quick overview of progress
 2. **Read detailed plan** at `C:\Users\Desktop\.claude\plans\merry-hopping-dove.md` - Full architectural details
-3. **Current phase**: Phase 5 (Move Validation & Execution)
-4. **What's working**: Board renders, pieces instantiated, player can select pieces and see legal moves
-5. **What's next**: Implement move execution and game flow
+3. **Current phase**: Phase 6 (Special Moves Implementation)
+4. **What's working**: FULLY PLAYABLE game with move execution, legal move filtering, checkmate/stalemate detection
+5. **What's next**: Implement special moves (castling, en passant, promotion UI)
 
 ### Key Technical Notes
 - **White pawns start at rank 1** (not rank 2 like standard chess!)
 - **Black pawns start at rank 6** (not rank 7)
 - **Promotion ranks**: Rank 7 for White, Rank 0 for Black
 - **Capablanca Position**: R-N-A-B-Q-K-B-C-N-R (Archbishop at file 2, Chancellor at file 7)
-- **Input System**: "Click" action already configured in UI action map
-
-### Testing Current Implementation
-
-To test phases 1-3:
-1. Open Unity and SampleScene
-2. Create GameObject "ChessManager" with components:
-   - ChessBoard
-   - BoardVisualizer
-   - BoardSetup
-   - TurnManager
-3. Configure references in BoardSetup inspector
-4. Call in Start():
-   - `boardVisualizer.CreateBoard()`
-   - `boardSetup.SetupCapablancaPosition()`
-   - `turnManager.StartNewGame()`
-
-**Note**: Pieces need sprites assigned in BoardSetup inspector.
+- **Input System**: "Click" action configured in UI action map (with fallback to legacy input)
+- **Game Flow**: GameController initializes everything automatically on Start if autoStartGame=true
 
 ---
 Last updated: 2026-01-10 | See [plan.md](plan.md) for implementation roadmap

@@ -4,7 +4,7 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 
 ## Current Progress (2026-01-10)
 
-### ✅ Phases 1-4 Complete
+### ✅ Phases 1-5 Complete
 **Phase 1 - Core Infrastructure:**
 - Folder structure
 - Enums (PieceType, PieceColor, GameState, MoveType)
@@ -30,17 +30,24 @@ See full detailed architectural plan at: `C:\Users\Desktop\.claude\plans\merry-h
 - PieceSelector (selection logic with turn validation)
 - ChessInputHandler (mouse input with raycasting)
 
-### 🔄 Next: Phase 5 - Move Validation & Execution
-- MoveExecutor (applies moves to board state)
-- Move validation and execution logic
-- Captured piece handling
-- Move history tracking
+**Phase 5 - Move Validation & Execution:**
+- MoveExecutor (applies moves, handles captures, updates state)
+- MoveHistory (tracks all moves, provides notation)
+- GameController (coordinates all systems, manages game flow)
+- GameState enum (NotStarted, InProgress, Checkmate, Stalemate, Draw)
+- Basic checkmate/stalemate detection
+- 50-move rule tracking
+
+### 🔄 Next: Phase 6 - Special Moves Implementation
+- Castling implementation (kingside & queenside for Capablanca)
+- En passant capture implementation
+- Pawn promotion UI and logic
+- Special move validation in King and Pawn classes
 
 ### ⬜ Remaining Phases
-- Phase 6: Check Detection & Legal Moves (Enhanced)
-- Phase 7: Special Moves (castling, en passant, promotion)
-- Phase 8: Game State Management (checkmate, stalemate)
-- Phase 9: Polish & Testing
+- Phase 7: Enhanced Game State Management
+- Phase 8: UI & Game Information Display
+- Phase 9: Polish, Testing & Documentation
 
 ## Quick Reference
 
@@ -68,6 +75,8 @@ Files:          a b c d e f g h i j
 **Move System:**
 - `Assets/Scripts/Core/MoveSystem/Move.cs` - Move struct with factory methods
 - `Assets/Scripts/Core/MoveSystem/MoveGenerator.cs` - Legal move generation with check filtering
+- `Assets/Scripts/Core/MoveSystem/MoveExecutor.cs` - Move execution and state updates (Phase 5)
+- `Assets/Scripts/Core/MoveSystem/MoveHistory.cs` - Move tracking and notation (Phase 5)
 
 **Pieces:**
 - `Assets/Scripts/Core/Pieces/ChessPiece.cs` - Abstract base class
@@ -76,8 +85,10 @@ Files:          a b c d e f g h i j
 **Game Logic:**
 - `Assets/Scripts/Core/GameLogic/BoardSetup.cs` - Initial Capablanca positioning
 - `Assets/Scripts/Core/GameLogic/TurnManager.cs` - Turn management
+- `Assets/Scripts/Core/GameLogic/GameController.cs` - Central game coordinator (Phase 5)
+- `Assets/Scripts/Core/GameLogic/GameState.cs` - Game state enum
 
-**Input & Interaction (Phase 4):**
+**Input & Interaction:**
 - `Assets/Scripts/Core/Input/ChessInputHandler.cs` - Mouse input and raycasting
 - `Assets/Scripts/Core/Input/PieceSelector.cs` - Piece selection logic
 - `Assets/Scripts/Core/Input/SquareHighlighter.cs` - Visual feedback system
